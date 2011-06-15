@@ -1,16 +1,15 @@
 === Delete Custom Fields ===
 Contributors: gluten
-Tags: tools, admin, custom fields, delete, manage, clean
+Tags: tools, admin, custom fields, delete, manage, clean, remove
 Requires at least: 3.1
 Tested up to: 3.2
 Stable tag: 0.1
 
-Delete every instance of a custom field from your site. 
+Remove every instance of a custom field from your site. 
 
 == Description ==
 
-Ever have one erroneously entered custom field name confuse all of your users and you just can't figure out how to get rid of it? Delete Custom Fields will let you delete every instance of a custom field from your site. 
-
+Ever have one erroneously entered custom field name confuse all of your users and you just can't figure out how to get rid of it? Delete Custom Fields will let you delete every instance of a custom field from your site. Once your remove a custom field using this plugin it will not appear in your list of custom fields when you edit a post or page.
 
 == Installation ==
 
