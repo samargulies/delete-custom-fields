@@ -2,8 +2,8 @@
 Contributors: gluten
 Tags: tools, admin, custom fields, delete, manage, clean, remove
 Requires at least: 3.1
-Tested up to: 3.2
-Stable tag: 0.1
+Tested up to: 3.3
+Stable tag: 0.2
 
 Remove every instance of a custom field from your site. 
 
@@ -26,6 +26,11 @@ Yes.
 No.
 
 == Changelog ==
+
+= 0.2 =
+* Delete all instances of custom field and not just ten at a time
+* Display up to 50 custom fields
+* Added option to show hidden custom fields
 
 = 0.1 =
 * First version

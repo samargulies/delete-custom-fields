@@ -2,7 +2,7 @@
 /*
 Plugin Name: Delete Custom Fields
 Description: Ever have one erroneously entered custom field name confuse all of your users and you just can't figure out how to get rid of it? Delete Custom Fields will let you delete every instance of a custom field from your site. 
-Version: 0.1
+Version: 0.2
 License: GPL version 2 or any later version
 Author: Sam Margulies
 Author URI: http://belabor.org/
@@ -25,14 +25,15 @@ class Delete_Custom_Fields {
 	function add_menu() {
 		add_management_page( 'Delete Custom Fields', 'Delete Custom Fields', 'manage_options', 'delete-custom-fields', array( &$this, 'admin_page' ) );
 	}
-	function get_all_meta_keys() {
-		global $wpdb;
-		$limit = 10;
+	function get_all_meta_keys( $include_hidden = false ) {
+		global $wpdb;		
+		$limit = 50;
+		$include_hidden = ($include_hidden) ? "" : "HAVING meta_key NOT LIKE '\_%'";
 		$keys = $wpdb->get_col( "
 				SELECT meta_key
 				FROM $wpdb->postmeta
 				GROUP BY meta_key
-				HAVING meta_key NOT LIKE '\_%'
+				$include_hidden
 				ORDER BY meta_key
 				LIMIT $limit" );
 		return $keys;
@@ -41,6 +42,7 @@ class Delete_Custom_Fields {
 	function get_all_posts_for_meta_key( $key ) {
 		$custom_value_query = new WP_Query( array(
 			'post_type' => 'any',
+			'nopaging' => true,
 			'ignore_sticky_posts' => true,
 			'post_status' => array('publish', 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit', 'trash'),
 			'meta_query' => array(
@@ -113,7 +115,7 @@ class Delete_Custom_Fields {
 	    ?>
 	    <div class="narrow">
 		<p>
-		<?php _e("This form will <strong>permanently delete</strong> custom fields you select along with any content associated with them. Before using this form, please <strong>make sure that you are not deleting a custom field used by your theme or plugins</strong>; just because you did not explicitly enter or create a custom field does not mean that it does not hold information used by your theme or plugins" ); ?> 
+		<?php _e("This form will <strong>permanently delete</strong> custom fields you select along with any content associated with them. Before using this form, please <strong>make sure that you are not deleting a custom field used by your theme or plugins</strong>; just because you did not explicitly enter or create a custom field does not mean that it does not hold information used by your theme or plugins." ); ?> To show hidden custom fields <a href="<?php echo admin_url('tools.php?page=delete-custom-fields&show-hidden=true'); ?>">click here</a>.
 		</p>
 				
 		<form name="delete-custom-fields" method="post">
@@ -127,7 +129,9 @@ class Delete_Custom_Fields {
 			
 			<?php
 			
-			$custom_fields = Delete_Custom_Fields::get_all_meta_keys();
+			$show_hidden = ($_GET['show-hidden']) ? true : false;
+			
+			$custom_fields = Delete_Custom_Fields::get_all_meta_keys( $show_hidden );
 			
 			foreach($custom_fields as $field) {
 				echo "<option value='$field'>$field</option>";
