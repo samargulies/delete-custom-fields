@@ -29,7 +29,7 @@ No.
 
 = 0.2 =
 * Delete all instances of custom field and not just ten at a time
-* Display up to 50 custom fields
+* Display up to 100 custom fields
 * Added option to show hidden custom fields
 
 = 0.1 =

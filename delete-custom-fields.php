@@ -27,7 +27,7 @@ class Delete_Custom_Fields {
 	}
 	function get_all_meta_keys( $include_hidden = false ) {
 		global $wpdb;		
-		$limit = 50;
+		$limit = 100;
 		$include_hidden = ($include_hidden) ? "" : "HAVING meta_key NOT LIKE '\_%'";
 		$keys = $wpdb->get_col( "
 				SELECT meta_key
