@@ -69,13 +69,13 @@ class Delete_Custom_Fields {
 	
 		$posts = $this->get_all_posts_for_meta_key( $key );
 		
-		if( ! $posts ) { return false; }
+		if( ! $posts ) { return true; }
 		
 		foreach( $posts as $post ) {
 			delete_post_meta($post, $key);
 		}
 		
-		return true;
+		return ! $this->get_all_posts_for_meta_key( $key );
 	}
 	
 	function admin_page( ) {
@@ -104,6 +104,12 @@ class Delete_Custom_Fields {
 				?>
 			
 				<div class="updated"><p><?php printf(__("The custom field <strong>%s</strong> has been deleted.", 'delete-custom-fields'), $custom_field); ?></p></div>
+			
+				<?php
+			} else {
+				?>
+			
+				<div class="error"><p><?php printf(__("The custom field <strong>%s</strong> appears to still be hanging around. Please try again to remove any traces of the field.", 'delete-custom-fields'), $custom_field); ?></p></div>
 			
 				<?php
 			}
