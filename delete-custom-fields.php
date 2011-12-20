@@ -7,7 +7,7 @@ License: GPL version 2 or any later version
 Author: Sam Margulies
 Author URI: http://belabor.org/
 
-Copyright 2011  Sam Margulies  (email : freebuffalo@gmail.com)
+Copyright 2011  Sam Margulies  (email : sam@belabor.org)
 
 ***
 Progress display and ajax functionality heavily influenced by Viper007Bond's awesome Regenerate Thumbnails plugin.
