@@ -40,11 +40,11 @@ class Delete_Custom_Fields {
 
 		// WordPress 3.1 vs older version compatibility
 		if ( wp_script_is( 'jquery-ui-widget', 'registered' ) )
-			wp_enqueue_script( 'jquery-ui-progressbar', plugins_url( 'jquery-ui/jquery.ui.progressbar.min.js', __FILE__ ), array( 'jquery-ui-core', 'jquery-ui-widget' ), '1.8.6' );
+			wp_enqueue_script( 'jquery-ui-progressbar', plugins_url( 'js/jquery.ui.progressbar.min.js', __FILE__ ), array( 'jquery-ui-core', 'jquery-ui-widget' ), '1.8.6' );
 		else
-			wp_enqueue_script( 'jquery-ui-progressbar', plugins_url( 'jquery-ui/jquery.ui.progressbar.min.1.7.2.js', __FILE__ ), array( 'jquery-ui-core' ), '1.7.2' );
+			wp_enqueue_script( 'jquery-ui-progressbar', plugins_url( 'js/jquery.ui.progressbar.min.1.7.2.js', __FILE__ ), array( 'jquery-ui-core' ), '1.7.2' );
 
-		wp_enqueue_style( 'jquery-ui-regenthumbs', plugins_url( 'jquery-ui/redmond/jquery-ui-1.7.2.custom.css', __FILE__ ), array(), '1.7.2' );
+		wp_enqueue_style( 'delete-custom-fields-styles', plugins_url( 'css/delete-custom-fields.css', __FILE__ ), array(), '1.7.2' );
 	}
 	
 	function get_all_meta_keys( $include_hidden = false ) {
@@ -116,7 +116,7 @@ class Delete_Custom_Fields {
 	    echo "<h2>" . __( 'Delete Custom Fields', 'delete-custom-fields' ) . "</h2>";
 	    echo '<div class="narrow">';
 	    
-	    echo '<div id="message" class="error fade" style="display:none"></div>';
+	    echo '<div id="message" class="error fade hidden"></div>';
 
 		echo '<noscript><div class="error"><p><strong>' . __( 'You must enable Javascript in order to proceed!', 'delete-custom-fields'  ) . '</strong></p></div></noscript>';
 
@@ -128,17 +128,17 @@ class Delete_Custom_Fields {
 			
 			$custom_field = esc_attr( $_REQUEST['custom-field-to-delete'] );
 		 	
-		 	echo '<p>' . __( "Please be patient while the fields are deleted. This can take a while if the field is used on many posts. Do not navigate away from this page until this script is done or the fields will not be deleted. You will be notified via this page when the process is complete.", 'delete-custom-fields' ) . '</p>';
+		 	echo '<p>' . __( "Please be patient while the fields are deleted. This can take a while if the field is used in many posts or if your server is slow. Do not navigate away from this page until this script is done or the fields will not be deleted. You will be notified via this page when the process is complete.", 'delete-custom-fields' ) . '</p>';
 
-			$text_goback = ( empty( $_GET['goback'] ) ) ? sprintf( __( 'To go back to the previous page, <a href="%s">click here</a>.', 'delete-custom-fields' ), 'javascript:history.go(-1)' ) : '';
+			$text_goback = sprintf( __( 'To go back to the previous page, <a href="%s">click here</a>.', 'delete-custom-fields' ), admin_url( 'tools.php?page=delete-custom-fields' ) );
 			$text_failures = sprintf( __( 'All done! %1$s custom fields were successfully deleted in %2$s seconds and there were %3$s failure(s). To try deleting the post fields again, <a href="%4$s">click here</a>. %5$s', 'delete-custom-fields' ), "' + dcf_successes + '", "' + dcf_totaltime + '", "' + dcf_failures + '", esc_url( wp_nonce_url( admin_url( 'tools.php?page=delete-custom-fields' ), 'delete-custom-fields' ) . '&custom-field-to-delete=' ) . $custom_field, $text_goback );
 			$text_nofailures = sprintf( __( 'All done! %1$s custom fields were successfully deleted in %2$s seconds and there were 0 failures. %3$s', 'delete-custom-fields' ), "' + dcf_successes + '", "' + dcf_totaltime + '", $text_goback );
 			$text_noposts = sprintf( __( 'No posts were found with the custom field "%1$s". %2$s', 'delete-custom-fields' ), $custom_field, $text_goback );
 
 		 	?>						
 		
-			<div id="regenthumbs-bar" style="position:relative;height:25px;">
-					<div id="regenthumbs-bar-percent" style="position:absolute;left:50%;top:50%;width:300px;margin-left:-150px;height:25px;margin-top:-9px;font-weight:bold;text-align:center;"></div>
+			<div id="regenthumbs-bar">
+					<div id="regenthumbs-bar-percent"></div>
 				</div>
 
 		
@@ -151,9 +151,9 @@ class Delete_Custom_Fields {
 				<?php printf( __( 'Post fields deleted: %s', 'delete-custom-fields'  ), '<span id="dcf-debug-successcount">0</span>' ); ?><br />
 				<?php printf( __( 'Deletion errors: %s', 'delete-custom-fields'  ), '<span id="dcf-debug-failurecount">0</span>' ); ?>
 			</p>
-			<div style="height: 200px;overflow: auto;">
+			<div class="debug-container">
 			<ol id="regenthumbs-debuglist">
-				<li style="display:none"></li>
+				<li class="hidden"></li>
 			</ol>	
 			</div>
 				

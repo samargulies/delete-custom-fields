@@ -1,3 +1,37 @@
+/* Delete Custom Fields Admin Page Styles
+---------------------------------------------*/
+#regenthumbs-bar {
+	position:relative;
+	height:25px;
+}
+#regenthumbs-bar-percent{
+	position:absolute;
+	left:50%;
+	top:50%;
+	width:300px;
+	margin-left:-150px;
+	height:25px;
+	margin-top:-9px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.debug-container {
+	height: 200px;
+	overflow: auto;
+}
+#regenthumbs-debuglist{
+	list-style-position:inside;
+	margin-left:0;
+}
+
+.hidden {
+	display: none;
+}
+
+/* jQuery UI Redmond Theme
+---------------------------------------------*/
+
 /*
 * jQuery UI CSS Framework
 * Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
