@@ -2,7 +2,7 @@
 /*
 Plugin Name: Delete Custom Fields
 Description: Ever have one erroneously entered custom field name confuse all of your users and you just can't figure out how to get rid of it? Delete Custom Fields will let you delete every instance of a custom field from your site. 
-Version: 0.3
+Version: 0.3.1
 License: GPL version 2 or any later version
 Author: Sam Margulies
 Author URI: http://belabor.org/
@@ -325,7 +325,7 @@ class Delete_Custom_Fields {
 		</label>
 		
 		<p class="submit">
-		<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Delete Permanently') ?>" disabled="disabled" />
+		<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Delete Permanently') ?>" />
 		<?php if($show_hidden) { ?>		
 			<a class="button" href="<?php echo admin_url('tools.php?page=delete-custom-fields'); ?>"><?php esc_attr_e('Hide Hidden Fields'); ?></a>
 		<?php } else { ?>
@@ -334,19 +334,6 @@ class Delete_Custom_Fields {
 		</p>
 		
 		</form>
-		<script type="text/javascript">
-		// <![CDATA[
-		jQuery(document).ready(function($){
-			// Enable delete button when a field is selected
-
-			$('#custom-field-to-delete').change(function(){
-				if( ! $('#custom-field-to-delete option:selected').prop('disabled') ) {
-					$('input.button-primary').prop({disabled: false});
-				}
-			}).change();
-		});
-		// ]]>
-		</script>
 		<?php } /* end if form submitted */ ?>
 		
 		</div> <!-- .narrow -->
